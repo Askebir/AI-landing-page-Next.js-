@@ -4,8 +4,7 @@ export default function Home() {
   return (
     <div>
     <Header/>
-    <h1>try</h1>
-    <h2>xfce</h2>
+  
     </div>
   )
 }
