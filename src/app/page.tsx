@@ -5,6 +5,7 @@ export default function Home() {
     <div>
     <Header/>
     <h1>try</h1>
+    <h2>xfce</h2>
     </div>
   )
 }
