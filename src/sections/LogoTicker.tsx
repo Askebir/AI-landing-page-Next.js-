@@ -7,20 +7,26 @@ import echoLogo from "@/assets/logo-echo.png";
 
 export const LogoTicker = () => {
   return (
-    <section className="container">
-      <div>
-        <h2>Trust by top innovative teams</h2>
-        <div className="flex ">
-          {[
-            acmeLogo,
-            apexLogo,
-            celestialLogo,
-            quantrumLogo,
-            pulseLogo,
-            echoLogo,
-          ].map((logo) => (
-            <img src={logo.src} key={logo.src} className="h-6 w-auto " />
-          ))}
+    <section className="py-20 md:py-24">
+      <div className="container">
+        <div className="flex items-center gap-5 ">
+          <div className="flex    md:flex-nono">
+            <h2>Trust by top innovative teams</h2>
+          </div>
+          <div className="flex-1 overflow-hidden   [mask-image:linear-gradient(to_right, transparent, black_80%, transparent">
+            <div className="flex  flex-none gap-15 ">
+              {[
+                acmeLogo,
+                apexLogo,
+                celestialLogo,
+                quantrumLogo,
+                pulseLogo,
+                echoLogo,
+              ].map((logo) => (
+                <img src={logo.src} key={logo.src} className="h-6 w-auto " />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
