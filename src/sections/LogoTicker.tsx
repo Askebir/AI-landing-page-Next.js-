@@ -10,11 +10,14 @@ export const LogoTicker = () => {
     <section className="py-20 md:py-24">
       <div className="container">
         <div className="flex items-center gap-5 ">
-          <div className="flex    md:flex-nono">
+          <div
+            className="flex    md:flex-nono overflow-hidden 
+"
+          >
             <h2>Trust by top innovative teams</h2>
           </div>
-          <div className="flex-1 overflow-hidden   [mask-image:linear-gradient(to_right, transparent, black_80%, transparent">
-            <div className="flex  flex-none gap-15 ">
+          <div className="flex-1 overflow-hidden   [mask-image:linear-gradient(to_right,black_90%,transparent )] ">
+            <div className="flex  flex-none gap-15  [mask-image:linear-gradient(to_left,black_90%,transparent)]  ">
               {[
                 acmeLogo,
                 apexLogo,
