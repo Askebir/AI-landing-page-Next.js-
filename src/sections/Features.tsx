@@ -34,7 +34,7 @@ export const Features = () => {
   return (
     <section className="py-20 md:py-24">
       <div className="container">
-        <h2 className="text-5xl font-medium text-lg md:text-6xl text-center tracking-tighter ">
+        <h2 className="text-5xl font-medium  md:text-6xl text-center tracking-tighter ">
           Elevate your SEO efforts.
         </h2>
         <p className="text-white/70  md:text-xl max-w-2xl mx-auto tracking-tight text-center mt-5 ">
