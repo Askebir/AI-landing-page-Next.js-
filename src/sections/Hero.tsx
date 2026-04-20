@@ -4,14 +4,14 @@ import starsBg from "@/assets/stars.png";
 export const Hero = () => {
   return (
     <section
-      className="h-[492px] flex  items-center md:h-[600px] m-6 overflow-hidden relative "
+      className="h-[492px]  flex  items-center md:h-[600px] m-5 overflow-hidden relative "
       style={{
         backgroundImage: `url(${starsBg.src})`,
       }}
     >
       <div
         className="
-  absolute h-64 w-64 rounded-full
+  absolute md:h-64 sm:h-48 md:w-64 sm:w-48  rounded-full
   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
 
   bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.9)_0%,rgba(184,148,255,0.6)_30%,rgba(90,40,180,0.9)_65%,rgba(30,10,80,1)_100%)]
@@ -21,7 +21,7 @@ export const Hero = () => {
 "
       ></div>
       {/* first rings */}
-      <div className="absolute h-[344px] w-[344px] md:w-[480px] md:h-[480px]   border rounded-full border-white opacity-20   top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 ">
+      <div className="absolute h-[220px]  w-[220px]  md:w-[480px] md:h-[480px]   border rounded-full border-white opacity-20   top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 ">
         <div className="absolute  h-2 w-2  left-0 bg-white rounded-full  top-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
         <div className="absolute  h-2 w-2  left-1/2 bg-white rounded-full  top-0 -translate-x-1/2 -translate-y-1/2 "></div>
         <div className="absolute  h-5 w-5 border border-white  left-full  rounded-full  top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center ">
@@ -29,22 +29,22 @@ export const Hero = () => {
         </div>
       </div>
       {/* 2nd ring */}
-      <div className="absolute h-[444px] w-[444px]  md:w-[580px] md:h-[580px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-2  border-dashed ">
+      <div className="absolute h-[250px] w-[250px]  md:w-[580px] md:h-[580px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed ">
         {" "}
       </div>
       {/* //3rd ring */}
-      <div className="absolute h-[555px] w-[555px]  md:w-[680px] md:h-[680px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-2  border-dashed ">
+      <div className="absolute h-[300px] w-[300px]  md:w-[680px] md:h-[680px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed ">
         {" "}
       </div>
       <div className="container mt-16 relative ">
         <h1
-          className="text-8xl font-semibold tracking-tighter 
+          className="text-6xl font-semibold tracking-tighter 
    bg-gradient-to-br from-white via-white to-purple-700 
-  text-transparent bg-clip-text md:text-[168px] sm:text-[110px] text-center"
+  text-transparent bg-clip-text md:text-[168px] sm:text-[90px] text-center"
         >
           AI SEO
         </h1>
-        <p className="text-lg text-white/70 mt-5 md:text-xl max-w-xl mx-auto md:leading=none text-center">
+        <p className="text-sm  text-white/70 mt-5 md:text-xl max-w-xl mx-auto md:leading=none text-center">
           your site's visibility effortlessly with AI, where smart technology
           meets user friendly SEO tools.
         </p>
