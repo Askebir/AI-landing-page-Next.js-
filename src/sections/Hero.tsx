@@ -1,14 +1,38 @@
 "use client";
 import Button from "@/components/Button";
 import starsBg from "@/assets/stars.png";
-import { motion } from "motion/react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import { useRef } from "react";
 
 export const Hero = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundPostionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+
   return (
-    <section
+    <motion.section
+      ref={sectionRef}
       className="h-[492px]  flex  items-center md:h-[600px] m-5 overflow-hidden relative "
       style={{
         backgroundImage: `url(${starsBg.src})`,
+        backgroundPositionY,
+      }}
+      animate={{
+        backgroundPositionX: starsBg.width,
+      }}
+      transition={{
+        repeat: Infinity,
+        ease: "linear",
+        duration: 120,
       }}
     >
       <div
@@ -45,13 +69,41 @@ export const Hero = () => {
         </div>
       </motion.div>
       {/* 2nd ring */}
-      <div className="absolute h-[250px] w-[250px]  md:w-[580px] md:h-[580px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed ">
+      <motion.div
+        animate={{
+          rotate: "-1turn",
+        }}
+        transition={{
+          duration: 80,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        style={{
+          translateY: "-50%",
+          translateX: "-50%",
+        }}
+        className="absolute h-[250px] w-[250px]  md:w-[580px] md:h-[580px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed "
+      >
         {" "}
-      </div>
+      </motion.div>
       {/* //3rd ring */}
-      <div className="absolute h-[300px] w-[300px]  md:w-[680px] md:h-[680px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed ">
+      <motion.div
+        animate={{
+          rotate: "1turn",
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        style={{
+          translateY: "-50%",
+          translateX: "-50%",
+        }}
+        className="absolute  h-[300px] w-[300px]  md:w-[680px] md:h-[680px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed "
+      >
         {" "}
-      </div>
+      </motion.div>
       <div className="container mt-16 relative ">
         <h1
           className="text-6xl font-semibold tracking-tighter 
@@ -69,6 +121,6 @@ export const Hero = () => {
           <Button>Join waitlist</Button>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
