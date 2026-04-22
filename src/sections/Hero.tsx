@@ -16,7 +16,11 @@ export const Hero = () => {
     offset: ["start end", "end start"],
   });
 
-  const backgroundPostionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+  const backgroundPositionY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-300, 300],
+  );
 
   return (
     <motion.section
