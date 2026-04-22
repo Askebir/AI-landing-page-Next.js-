@@ -1,7 +1,18 @@
 "use client";
-import { DotLottiePlayer } from "@dotlottie/react-player";
+import {
+  DotLottieCommonPlayer,
+  DotLottiePlayer,
+} from "@dotlottie/react-player";
 import productImage from "@/assets/product-image.png";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import {
+  useMotionTemplate,
+  useMotionValue,
+  motion,
+  animateTarget,
+  animate,
+} from "motion/react";
 
 const tabs = [
   {
@@ -29,6 +40,63 @@ const tabs = [
     backgroundSizeX: 177,
   },
 ];
+const FeatureTab = (tab: (typeof tabs)[number]) => {
+  const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
+
+  const xPercentage = useMotionValue(0);
+  const yPercentage = useMotionValue(0);
+
+  const maskImage = useMotionTemplate`radial-gradient(80px 80px at ${xPercentage}% ${yPercentage}%, black, transparent)`;
+
+  useEffect(() => {
+    animate(xPercentage, [0, 100, 100, 0, 0], {
+      duration: 4,
+      repeat: Infinity,
+      ease: "linear",
+      repeatType: "loop",
+    });
+    animate(yPercentage, [0, 0, 100, 100, 0], {
+      duration: 4,
+      repeat: Infinity,
+      ease: "linear",
+      repeatType: "loop",
+    });
+  }, []);
+
+  const handleTabHover = () => {
+    if (dotLottieRef.current === null) return;
+    dotLottieRef.current.seek(0);
+    dotLottieRef.current.play();
+  };
+
+  return (
+    <div
+      onMouseEnter={handleTabHover}
+      className="border border-white/50 rounded-xl items-center relative  flex lg:flex-1 gap-2.5 p-2.5 r  "
+    >
+      <motion.div
+        style={{
+          maskImage: maskImage,
+        }}
+        className="absolute inset-0 -m-px rounded-xl border-2 border-[#A369ff] [-webkit-mask-image:radial-gradient(80px_80px_at_0%_0%,black,transparent)]  "
+      ></motion.div>
+      <div className="h-12 w-12 border border-white/15 rounded-lg inline-flex items-center justify-center ">
+        <DotLottiePlayer
+          ref={dotLottieRef}
+          src={tab.icon}
+          className="h-5 w-5"
+          autoplay
+        />
+      </div>
+      <div className="font-medium">{tab.title}</div>
+      {tab.isNew && (
+        <div className="text-xs rounded-full px-2 py-0.5 bg-[#8c44ff] text-black font-semibold ">
+          New
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const Features = () => {
   return (
@@ -43,20 +111,7 @@ export const Features = () => {
         </p>
         <div className="mt-5 flex flex-col md:flex-row gap-3 ">
           {tabs.map((tab) => (
-            <div
-              key={tab.title}
-              className="border border-white/50 rounded-xl items-center  flex lg:flex-1 gap-2.5 p-2.5 r  "
-            >
-              <div className="h-12 w-12 border border-white/15 rounded-lg inline-flex items-center justify-center ">
-                <DotLottiePlayer src={tab.icon} className="h-5 w-5" autoplay />
-              </div>
-              <div className="font-medium">{tab.title}</div>
-              {tab.isNew && (
-                <div className="text-xs rounded-full px-2 py-0.5 bg-[#8c44ff] text-black font-semibold ">
-                  New
-                </div>
-              )}
-            </div>
+            <FeatureTab {...tab} key={tab.title} />
           ))}
         </div>
         <div className="border border-white/20 p-2.5 rounded-xl mt-3">
