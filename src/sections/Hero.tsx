@@ -1,5 +1,7 @@
+"use client";
 import Button from "@/components/Button";
 import starsBg from "@/assets/stars.png";
+import { motion } from "motion/react";
 
 export const Hero = () => {
   return (
@@ -21,13 +23,27 @@ export const Hero = () => {
 "
       ></div>
       {/* first rings */}
-      <div className="absolute h-[220px]  w-[220px]  md:w-[480px] md:h-[480px]   border rounded-full border-white opacity-20   top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 ">
+      <motion.div
+        style={{
+          translateY: "-50%",
+          translateX: "-50%",
+        }}
+        animate={{
+          rotate: "1turn",
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 30,
+          ease: "linear",
+        }}
+        className="absolute h-[220px]  w-[220px]  md:w-[480px] md:h-[480px]   border rounded-full border-white opacity-20   top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 "
+      >
         <div className="absolute  h-2 w-2  left-0 bg-white rounded-full  top-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
         <div className="absolute  h-2 w-2  left-1/2 bg-white rounded-full  top-0 -translate-x-1/2 -translate-y-1/2 "></div>
         <div className="absolute  h-5 w-5 border border-white  left-full  rounded-full  top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center ">
           <div className="h-2 w-2 bg-white rounded-full "> </div>
         </div>
-      </div>
+      </motion.div>
       {/* 2nd ring */}
       <div className="absolute h-[250px] w-[250px]  md:w-[580px] md:h-[580px]  rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   border-dashed ">
         {" "}
