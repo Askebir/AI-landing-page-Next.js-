@@ -52,6 +52,12 @@ export const Footer = () => {
             <YTSocial className="text-white/40 hover:text-white transition" />
           </div>
         </div>
+        <div className="my-2 flex items-center justify-center ">
+          <p className="text-white/20">
+            Tutorial clone by{" "}
+            <span className="text-white underline ">Askebir Tadesse</span>{" "}
+          </p>
+        </div>
       </div>
     </footer>
   );
