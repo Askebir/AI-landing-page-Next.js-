@@ -27,7 +27,7 @@ const testimonials = [
     avatarImg: avatar3,
   },
   {
-    text: "“Our team's productivity has increased significantly since we started using this tool”",
+    text: "“Our team &apos; s productivity has increased significantly since we started using this tool”",
     name: "Alec Whitten",
     title: "CTO @ Tech Solutions",
     avatarImg: avatar4,
@@ -42,7 +42,7 @@ export const Testimonials = () => {
           Beyond Expectations.
         </h2>
         <p className="text-white/70 text-lg text-center mt-5 tracking-tight max-w-sm mx-auto ">
-          Our revolutions AI SEO tools have transformed our clients'
+          Our revolutions AI SEO tools have transformed our clients
           strategies.{" "}
         </p>
         <div className=" flex overflow-hidden mt-10   ">
@@ -67,7 +67,7 @@ export const Testimonials = () => {
               >
                 <div className="text-lg tracking-tight">{testimonial.text}</div>
                 <div className="flex itmes-center gap-3 mt-5">
-                  <div className="relative after:content-[''] after:absolute after:inset-0 after:bg-[rgba(140,69,244)  ] after:mix-blend-soft-light ">
+                  <div className="relative after:content-[] after:absolute after:inset-0 after:bg-[rgba(140,69,244)  ] after:mix-blend-soft-light ">
                     <Image
                       src={testimonial.avatarImg}
                       alt={`Avatar for ${testimonial.name}`}
