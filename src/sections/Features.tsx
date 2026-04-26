@@ -5,7 +5,7 @@ import {
 } from "@dotlottie/react-player";
 import productImage from "@/assets/product-image.png";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import {
   useMotionTemplate,
   useMotionValue,
@@ -40,7 +40,13 @@ const tabs = [
     backgroundSizeX: 177,
   },
 ];
-const FeatureTab = (tab: (typeof tabs)[number]) => {
+
+const FeatureTab = (
+  props: (typeof tabs)[number] &
+    ComponentPropsWithoutRef<"div"> & { selected: boolean },
+) => {
+  const tabRef = useRef<HTMLDivElement>(null);
+
   const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
 
   const xPercentage = useMotionValue(0);
@@ -49,19 +55,37 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
   const maskImage = useMotionTemplate`radial-gradient(80px 80px at ${xPercentage}% ${yPercentage}%, black, transparent)`;
 
   useEffect(() => {
+    if (!tabRef.current || !props.selected) return;
+
+    xPercentage.set(0);
+    yPercentage.set(0);
+
+    const { height, width } = tabRef.current?.getBoundingClientRect();
+    const circumference = height * 2 + width * 2;
+
+    const times = [
+      0,
+      width / circumference,
+      (width + height) / circumference,
+      (width * 2 + height) / circumference,
+      1,
+    ];
+
     animate(xPercentage, [0, 100, 100, 0, 0], {
+      times,
       duration: 4,
       repeat: Infinity,
       ease: "linear",
       repeatType: "loop",
     });
     animate(yPercentage, [0, 0, 100, 100, 0], {
+      times,
       duration: 4,
       repeat: Infinity,
       ease: "linear",
       repeatType: "loop",
     });
-  }, []);
+  }, [props.selected]);
 
   const handleTabHover = () => {
     if (dotLottieRef.current === null) return;
@@ -71,25 +95,30 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
 
   return (
     <div
+      ref={tabRef}
       onMouseEnter={handleTabHover}
       className="border border-white/50 rounded-xl items-center relative  flex lg:flex-1 gap-2.5 p-2.5 r  "
+      onClick={props.onClick}
     >
-      <motion.div
-        style={{
-          maskImage: maskImage,
-        }}
-        className="absolute inset-0 -m-px rounded-xl border-2 border-[#A369ff] [-webkit-mask-image:radial-gradient(80px_80px_at_0%_0%,black,transparent)]  "
-      ></motion.div>
+      {props.selected && (
+        <motion.div
+          style={{
+            maskImage: maskImage,
+          }}
+          className="absolute inset-0 -m-px rounded-xl border-2 border-[#A369ff] [-webkit-mask-image:radial-gradient(80px_80px_at_0%_0%,black,transparent)]  "
+        ></motion.div>
+      )}
+
       <div className="h-12 w-12 border border-white/15 rounded-lg inline-flex items-center justify-center ">
         <DotLottiePlayer
           ref={dotLottieRef}
-          src={tab.icon}
+          src={props.icon}
           className="h-5 w-5"
           autoplay
         />
       </div>
-      <div className="font-medium">{tab.title}</div>
-      {tab.isNew && (
+      <div className="font-medium">{props.title}</div>
+      {props.isNew && (
         <div className="text-xs rounded-full px-2 py-0.5 bg-[#8c44ff] text-black font-semibold ">
           New
         </div>
@@ -99,6 +128,46 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
 };
 
 export const Features = () => {
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const backgroundPositionX = useMotionValue(tabs[0].backgroundPositionX);
+  const backgroundPositionY = useMotionValue(tabs[0].backgroundPositionY);
+  const backgroundSizeX = useMotionValue(tabs[0].backgroundSizeX);
+
+  const backgroundPosition = useMotionTemplate`${backgroundPositionX}% ${backgroundPositionY}`;
+  const backgroundSize = useMotionTemplate`${backgroundSizeX}% auto`;
+
+  const handleSelectTab = (index: number) => {
+    setSelectedTab(index);
+
+    animate(
+      backgroundSizeX,
+      [backgroundSizeX.get(), 100, tabs[index].backgroundSizeX],
+      {
+        duration: 2,
+        ease: "easeInOut",
+      },
+    );
+
+    animate(
+      backgroundPositionX,
+      [(backgroundPositionX.get(), tabs[index].backgroundPositionX)],
+      {
+        duration: 2,
+        ease: "easeInOut",
+      },
+    );
+
+    animate(
+      backgroundPositionY,
+      [backgroundPositionY.get(), tabs[index].backgroundPositionY],
+      {
+        duration: 2,
+        ease: "easeInOut",
+      },
+    );
+  };
+
   return (
     <section className="py-20 md:py-24">
       <div className="container">
@@ -110,17 +179,24 @@ export const Features = () => {
           revolutionized the way businesses approach SEO
         </p>
         <div className="mt-5 flex flex-col md:flex-row gap-3 ">
-          {tabs.map((tab) => (
-            <FeatureTab {...tab} key={tab.title} />
+          {tabs.map((tab, tabIndex) => (
+            <FeatureTab
+              selected={selectedTab === tabIndex}
+              {...tab}
+              onClick={() => handleSelectTab(tabIndex)}
+              key={tab.title}
+            />
           ))}
         </div>
         <div className="border border-white/20 p-2.5 rounded-xl mt-3">
-          <div
+          <motion.div
             className="aspect-video bg-cover border border-white/20 rounded-lg"
             style={{
+              backgroundPosition: backgroundPosition,
+              backgroundSize,
               backgroundImage: `url(${productImage.src})`,
             }}
-          ></div>
+          ></motion.div>
           {/* <Image src={productImage} alt="Product image" /> */}
         </div>
       </div>
